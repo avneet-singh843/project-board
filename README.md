@@ -42,7 +42,7 @@ A simple **Project Board** application built with **React**, **dnd-kit**, and **
 1. **Clone or Download** the Repository
 
    ```bash
-   git clone https://github.com/avneet-singh843/board-flow.git
+   git clone https://github.com/avneet-singh843/project-board.git
    cd board-flow
    ```
 
