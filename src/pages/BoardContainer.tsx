@@ -21,26 +21,23 @@ import { Board } from "../types/Board";
 const BoardContainer: React.FC = () => {
   const [boards, setBoards] = useState<Board[]>([]);
 
-  // --- Modals for creation ---
+  //  Modals for creation
   const [isAddBoardOpen, setIsAddBoardOpen] = useState(false);
   const [isAddTaskOpen, setIsAddTaskOpen] = useState(false);
   const [selectedBoardIdForTask, setSelectedBoardIdForTask] = useState<
     number | null
   >(null);
 
-  // --- Modal for task details/editing ---
+  //  Modal for task details/editing
   const [selectedTaskBoardId, setSelectedTaskBoardId] = useState<number | null>(
     null
   );
   const [selectedTaskId, setSelectedTaskId] = useState<string | null>(null);
 
-  // --- For DragOverlay visual feedback ---
+  //  For DragOverlay visual feedback
   const [activeTaskId, setActiveTaskId] = useState<string | null>(null);
 
-  // -----------------------
-  //   LOAD / SAVE localStorage
-  // -----------------------
-
+  //   LOAD localStorage
   useEffect(() => {
     const savedBoards = localStorage.getItem(LocalStorageKeys.board);
 
@@ -84,9 +81,7 @@ const BoardContainer: React.FC = () => {
     ];
   };
 
-  // -----------------------
   //  Create Board / Task
-  // -----------------------
   const handleCreateBoard = (boardName: string) => {
     const newBoard: Board = {
       id: boards.length + 1,
@@ -122,9 +117,7 @@ const BoardContainer: React.FC = () => {
     setIsAddTaskOpen(false);
   };
 
-  // -----------------------
   //  Update / Delete Task
-  // -----------------------
   const handleUpdateTask = (
     originalBoardId: number,
     taskId: string,
@@ -191,9 +184,7 @@ const BoardContainer: React.FC = () => {
     closeTaskDetailModal();
   };
 
-  // -----------------------
   //  DnD: Drag & Drop
-  // -----------------------
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
@@ -215,13 +206,13 @@ const BoardContainer: React.FC = () => {
     if (!over) return;
     if (active.id === over.id) return;
 
-    // 1) Source board
+    // Source board
     const sourceBoardIndex = boards.findIndex((board) =>
       board.tasks.some((t) => t.id === active.id)
     );
     if (sourceBoardIndex < 0) return;
 
-    // 2) Destination board
+    // Destination board
     let destinationBoardIndex = -1;
     if (typeof over.id === "string" && over.id.startsWith("board-")) {
       const boardId = parseInt(over.id.replace("board-", ""), 10);
@@ -237,7 +228,7 @@ const BoardContainer: React.FC = () => {
     const sourceBoard = boards[sourceBoardIndex];
     const destinationBoard = boards[destinationBoardIndex];
 
-    // 3) Indices
+    // Indices
     const oldIndex = sourceBoard.tasks.findIndex((t) => t.id === active.id);
     const newIndex = destinationBoard.tasks.findIndex((t) => t.id === over.id);
 
@@ -273,9 +264,7 @@ const BoardContainer: React.FC = () => {
       setBoards(updatedBoards);
     }
   };
-  // -----------------------
   //  TaskDetail Modal
-  // -----------------------
   const openTaskDetailModal = (boardId: number, taskId: string) => {
     setSelectedTaskBoardId(boardId);
     setSelectedTaskId(taskId);
@@ -295,9 +284,7 @@ const BoardContainer: React.FC = () => {
     }
   }
 
-  // -----------------------
   //  RENDER
-  // -----------------------
   return (
     <div className="flex flex-col items-center justify-center w-full h-full bg-gray-100">
       <div className="top-0 w-full flex flex-row justify-between border-b border-gray-200 p-4 bg-white shdow-md">
@@ -324,7 +311,7 @@ const BoardContainer: React.FC = () => {
       </div>
 
       {/* 
-        Wrapping boards in DndContext so we can handle onDragStart & onDragEnd. 
+        Wrapping boards in DndContext to handle onDragStart & onDragEnd. 
         Then we add a <DragOverlay> to show a floating preview.
       */}
       <div className="flex-1 w-full f-full p-4">

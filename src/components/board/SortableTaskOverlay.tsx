@@ -1,5 +1,5 @@
 import React from "react";
-import { Board } from "../../pages/BoardContainer";
+import { Board } from "../../types/Board";
 
 /**
  * A minimal overlay component that duplicates the style
@@ -25,14 +25,13 @@ export const SortableTaskOverlay: React.FC<SortableTaskOverlayProps> = ({
   }
 
   if (!taskData) {
-    return null; // If somehow not found, render nothing
+    return null;
   }
 
   return (
     <div
       className="bg-white border rounded p-3 shadow-lg"
       style={{
-        // Possibly bigger or tinted to stand out
         width: 200,
         opacity: 0.9,
       }}
