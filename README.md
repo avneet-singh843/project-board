@@ -39,9 +39,11 @@ A simple **Project Board** application built with **React**, **dnd-kit**, and **
 
 ## Preview
 
-<video src="/src/assets/project-board.mov" controls style="max-width: 100%;">
-   Your browser does not support the video tag.
-</video>
+
+https://github.com/user-attachments/assets/f9e8477e-12db-421b-8715-4eb96953798e
+
+
+
 ---
 
 ## Installation
